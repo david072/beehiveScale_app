@@ -1,22 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:stockwaage_app/screens/home.dart';
-import 'package:stockwaage_app/screens/login/registration.dart';
 import 'package:stockwaage_app/screens/login/auth.dart';
 
-class Login extends StatefulWidget {
+import '../home.dart';
+
+class Registration extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _RegistrationState createState() => _RegistrationState();
 }
 
-class _LoginState extends State<Login> {
+class _RegistrationState extends State<Registration> {
   final GlobalKey formKey = GlobalKey<FormState>();
 
+  String name = '';
   String email = '';
   String password = '';
 
-  Future<void> login() async {
-    FirebaseUser user = await Authentication().signIn(formKey, email, password);
+  Future<void> register() async {
+    FirebaseUser user = await Authentication().register(formKey, name, email, password);
     if(user != null) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
     }
@@ -31,11 +32,25 @@ class _LoginState extends State<Login> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(top: 10, left: 70, right: 70),
-              child: Image.asset(
-                'assets/images/bees.png',
-              ),
+            Stack(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 10, left: 70, right: 70),
+                  child: Image.asset(
+                    'assets/images/bees.png',
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () => { Navigator.pop(context), },
+                  ),
+                )
+              ],
             ),
             Row(
               children: <Widget>[
@@ -60,7 +75,7 @@ class _LoginState extends State<Login> {
                             color: Color(0xff3B3B3B),
                           ),
                           Text(
-                            'Login',
+                            'Registrieren',
                             style: TextStyle(
                               fontFamily: 'segoe ui light',
                               fontSize: 28,
@@ -80,6 +95,53 @@ class _LoginState extends State<Login> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
+                                  Container(
+                                    margin:
+                                        EdgeInsets.only(top: 20, bottom: 20),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(200),
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 6,
+                                            offset: Offset(0, 3),
+                                          )
+                                        ]),
+                                    child: TextFormField(
+                                      onChanged: (String newName) => setState(() {
+                                        name = newName;
+                                      }),
+                                      validator: (input) {
+                                        if (input.isEmpty) {
+                                          return 'Bitte gib deinen Namen an';
+                                        }
+
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: 'Name',
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xff008F26),
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(200),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xff008F26),
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(200),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                   Container(
                                     decoration: BoxDecoration(
                                         borderRadius:
@@ -186,14 +248,14 @@ class _LoginState extends State<Login> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    child: Text('Login'.toUpperCase(),
+                                    child: Text('Registrieren'.toUpperCase(),
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 22,
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'segoe ui semibold')),
                                     onPressed: () => {
-                                      login(),
+                                      register(),
                                     },
                                   )
                                 ],
@@ -206,31 +268,6 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ],
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 40, left: 40),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    'Du hast keinen Account? ',
-                    style: TextStyle(
-                      fontFamily: 'century gothic',
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                  GestureDetector(
-                    child: Text('Registrieren!',
-                        style: TextStyle(
-                          fontFamily: 'century gothic',
-                          fontSize: 15,
-                          decoration: TextDecoration.underline,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff00851B),
-                        )),
-                    onTap: () => { Navigator.of(context).push(MaterialPageRoute(builder: (context) => Registration())) },
-                  )
-                ],
-              ),
             ),
           ],
         ),

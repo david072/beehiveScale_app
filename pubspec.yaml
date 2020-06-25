@@ -11,6 +11,13 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^0.1.3
 
+  firebase_auth: ^0.16.1
+  firebase_core: ^0.4.5
+  firebase_analytics: ^5.0.14
+  cloud_firestore: ^0.13.6
+
+  rxdart: ^0.24.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -19,7 +26,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/bees.png
 

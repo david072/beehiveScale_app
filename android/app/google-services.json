@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "874296037897",
+    "firebase_url": "https://stockwaage-46ed1.firebaseio.com",
+    "project_id": "stockwaage-46ed1",
+    "storage_bucket": "stockwaage-46ed1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874296037897:android:97442e6253fd485ab75ed8",
+        "android_client_info": {
+          "package_name": "de.beEes2.beehiveScale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874296037897-rsbv9142hmeemmrsken7ivfqugu3jn5j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.beEes2.beehiveScale",
+            "certificate_hash": "68cd427182c3105db848254007d8e5243b90a2a2"
+          }
+        },
+        {
+          "client_id": "874296037897-0lr6mvu39dlnoa913a0ogl9mpkr3ca50.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh8IT7Y2VQfv1HXyhH_ejqVPm6I-Cl9Zg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874296037897-0lr6mvu39dlnoa913a0ogl9mpkr3ca50.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
