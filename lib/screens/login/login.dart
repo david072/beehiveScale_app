@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:stockwaage_app/screens/home.dart';
+import 'file:///C:/Apps/stockwaage_app/lib/screens/home/home.dart';
 import 'package:stockwaage_app/screens/login/registration.dart';
 import 'package:stockwaage_app/screens/login/auth.dart';
 

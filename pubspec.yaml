@@ -17,6 +17,7 @@ dependencies:
   cloud_firestore: ^0.13.6
 
   rxdart: ^0.24.1
+  flutter_svg: ^0.17.4
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +29,7 @@ flutter:
 
   assets:
     - assets/images/bees.png
+    - assets/icons/menu.svg
 
 
   fonts:
