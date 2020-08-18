@@ -18,6 +18,13 @@ dependencies:
 
   rxdart: ^0.24.1
   flutter_svg: ^0.17.4
+  flutter_colorpicker: ^0.3.4
+  fl_chart: ^0.10.1
+
+  get_ip: ^0.4.0
+  connectivity: ^0.4.8+6
+  permission_handler: ^5.0.1+1
+  shared_preferences: ^0.5.8
 
 dev_dependencies:
   flutter_test:
@@ -30,6 +37,7 @@ flutter:
   assets:
     - assets/images/bees.png
     - assets/icons/menu.svg
+    - assets/icons/emptyProfileIcon.png
 
 
   fonts:
@@ -44,6 +52,10 @@ flutter:
     - family: segoe ui semibold
       fonts:
         - asset: assets/fonts/seguisb.ttf
+
+    - family: segoe ui
+      fonts:
+        - asset: assets/fonts/Segoe UI.ttf
 
     - family: century gothic
       fonts:

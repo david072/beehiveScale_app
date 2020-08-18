@@ -1,26 +1,31 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:stockwaage_app/screens/home/beehiveItem.dart';
+import 'package:stockwaage_app/screens/addBehivescale/powerBeehivescales.dart';
+import 'package:stockwaage_app/screens/home/HomeDrawer.dart';
+import 'package:stockwaage_app/screens/home/beehivescaleItem.dart';
+import 'package:stockwaage_app/util/FirestoreThings.dart';
 
-class Home extends StatefulWidget {
-  final FirebaseUser user;
+class Home {
+  static List<BeehiveScaleItemInfo> beehiveScaleIIs =
+      List<BeehiveScaleItemInfo>();
 
-  Home({this.user});
-
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-
-  Widget createBeehiveItem(BuildContext ctx, int i) {
-    return BeehiveItem();
+  static Future<void> getBeehiveScaleIIs(FirebaseUser user) async {
+    beehiveScaleIIs = await ThingsFromFirestore.getBeehiveScalesForUser(user);
   }
 
-  @override
-  Widget build(BuildContext context) {
+  static Widget createBeehiveItem(BuildContext ctx, int i) {
+    return BeehiveItem(
+      name: beehiveScaleIIs[i].getDisplayName(),
+      color: Color(beehiveScaleIIs[i].getColorValue()),
+      ip: beehiveScaleIIs[i].getIP(),
+      espName: beehiveScaleIIs[i].getEspName(),
+    );
+  }
+
+  static Widget getHomePage(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -35,9 +40,7 @@ class _HomeState extends State<Home> {
                 alignment: Alignment.topLeft,
                 child: SvgPicture.asset('assets/icons/menu.svg'),
               ),
-              onTap: () =>
-              { /* TODO: open drawer */
-              },
+              onTap: () => {HomeDrawer.toggle()},
             ),
           ),
           Text(
@@ -81,12 +84,14 @@ class _HomeState extends State<Home> {
                         style: TextStyle(
                             color: Colors.white,
                             fontFamily: 'segoe ui',
-                            fontSize: 16
-                        ),
+                            fontSize: 16),
                       ),
                     ],
                   ),
-                  onPressed: () => {},
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PowerBeehiveScales())),
                 ),
               ),
             ),
@@ -95,8 +100,9 @@ class _HomeState extends State<Home> {
             child: Container(
               margin: EdgeInsets.only(left: 40, right: 40),
               child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (BuildContext context, int index) => createBeehiveItem(context, index),
+                itemCount: beehiveScaleIIs.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    createBeehiveItem(context, index),
               ),
             ),
           ),

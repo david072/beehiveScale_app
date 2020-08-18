@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:stockwaage_app/screens/home/HomeDrawer.dart';
 import 'package:stockwaage_app/screens/login/auth.dart';
-
-import '../home/home.dart';
 
 class Registration extends StatefulWidget {
   @override
@@ -19,7 +18,7 @@ class _RegistrationState extends State<Registration> {
   Future<void> register() async {
     FirebaseUser user = await Authentication().register(formKey, name, email, password);
     if(user != null) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeDrawer(user: user,)));
     }
   }
 

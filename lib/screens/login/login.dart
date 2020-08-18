@@ -1,30 +1,47 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Apps/stockwaage_app/lib/screens/home/home.dart';
+import 'package:stockwaage_app/screens/home/HomeDrawer.dart';
 import 'package:stockwaage_app/screens/login/registration.dart';
 import 'package:stockwaage_app/screens/login/auth.dart';
 
 class Login extends StatefulWidget {
+  final bool shouldCheckAlreadyLoggedIn;
+
+  Login({this.shouldCheckAlreadyLoggedIn = false});
+
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
   final GlobalKey formKey = GlobalKey<FormState>();
+  bool checked = false;
 
   String email = '';
   String password = '';
 
+  void checkAlreadyLoggedInUser(BuildContext ctx) async {
+    FirebaseUser user = await FirebaseAuth.instance.onAuthStateChanged.firstWhere((u) => u != null);
+    Navigator.push(ctx, MaterialPageRoute(builder: (ctx) => HomeDrawer(user: user,)));
+  }
+
   Future<void> login() async {
     FirebaseUser user = await Authentication().signIn(formKey, email, password);
     if(user != null) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeDrawer(user: user)));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    if(!checked && widget.shouldCheckAlreadyLoggedIn) {
+      setState(() {
+        checked = true;
+      });
+      checkAlreadyLoggedInUser(context);
+    }
 
     return Scaffold(
       body: SingleChildScrollView(

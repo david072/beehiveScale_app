@@ -1,7 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:stockwaage_app/screens/beehiveScaleView/beehivescaleView.dart';
 
 class BeehiveItem extends StatefulWidget {
+  final String name;
+  final Color color;
+  final String ip;
+  final String espName;
+
+  BeehiveItem({this.name, this.color, this.ip, this.espName});
+
   @override
   _BeehiveItemState createState() => _BeehiveItemState();
 }
@@ -14,7 +22,7 @@ class _BeehiveItemState extends State<BeehiveItem> {
     return Container(
       margin: EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: Color(0xff980101),
+        color: widget.color,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Align(
@@ -33,7 +41,7 @@ class _BeehiveItemState extends State<BeehiveItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Stockwaage 1',
+                    widget.name,
                     style: TextStyle(
                       fontFamily: 'bahnschrift',
                       fontWeight: FontWeight.bold,
@@ -72,7 +80,9 @@ class _BeehiveItemState extends State<BeehiveItem> {
                       icon: Icon(
                         Icons.arrow_forward_ios,
                       ),
-                      onPressed: () => {},
+                      onPressed: () => {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => BeehiveScaleView(stockwaageID: widget.espName, name: widget.name, ip: widget.ip,)))
+                      },
                     ),
                   ),
                 ),
